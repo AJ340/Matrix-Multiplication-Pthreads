@@ -182,8 +182,10 @@ int main(int argc, char const *argv[])
 	print_matrix(&c);
 
 	// Free dynamic memory
-	if (threads == NULL)
+	if (threads != NULL)
 		free(threads);
+	if (all_t_args != NULL)
+		free(all_t_args);
 	free(a.data);
 	free(b.data);
 	free(c.data);
