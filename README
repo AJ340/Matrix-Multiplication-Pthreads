@@ -1,0 +1,14 @@
+README
+
+- Andres Quinones
+- Unix Tools Spring 2017
+
+This is my submission for HW10
+
+compiles with make
+
+to modify matrix sizes, these values are hardcoded in main function of AQ-UNIX-HW10.c
+
+runs like so
+./AQ-UNIX-HW10
+
