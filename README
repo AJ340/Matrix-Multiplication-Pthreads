@@ -7,8 +7,10 @@ This is my submission for HW10
 
 compiles with make
 
-to modify matrix sizes, these values are hardcoded in main function of AQ-UNIX-HW10.c
+matrix sizes are entered at runtime as program arguments
+Usage:
+ ./AQ-UNIX-HW10 [A_ROWS] [A_COLUMNS] [B_ROWS]
 
-runs like so
-./AQ-UNIX-HW10
+ matrices are filled with random numbers from 1 to 10
+
 

@@ -44,6 +44,14 @@ void * multiply(void *arg)
 	pthread_exit(0);
 }
 
+int validateMultiply(matrix *a, matrix *b)
+{
+	// A columns and B rows must be equal.
+	// Rows and columns of A and B must not be 0
+	if (a->cols == b->rows && verify_matrix(a) && verify_matrix(b))
+		return 1;
+	return 0;
+}
 
 int main(int argc, char const *argv[])
 {
@@ -52,13 +60,40 @@ int main(int argc, char const *argv[])
 	struct timeval t1;
 	gettimeofday(&t1, NULL);
 	srand(t1.tv_usec * t1.tv_sec);
+	int a_rows, a_cols, b_rows, b_cols;
+
+	// Valid number of arguments. (See usage [LINE 73/74] below)
+	if(argc == 5)
+	{
+		// Non integer argument values are treated as 0
+		// 0 values caught in verigyMultiply
+		a_rows =  atoi(argv[1]);
+		a_cols =  atoi(argv[2]);
+		b_rows =  atoi(argv[3]);
+		b_cols =  atoi(argv[4]);
+	}
+	else
+	{
+		printf("Invalid Arguments\n"
+				"Usage: %s [A_ROWS] [A_COLUMNS] [B_ROWS] [B_COLUMNS]\n", argv[0]);
+		return 1;
+	}
 
 	// Matricies must be initialized properly or fill will fail.
 	// A columns and B rows must be equal
 	// C must be of size A_Rows x B_Cols
-	initialize_matrix(&a, 5, 4);
-	initialize_matrix(&b, 4, 5);
-	initialize_matrix(&c, 5, 5);
+	initialize_matrix(&a, a_rows, a_cols);
+	initialize_matrix(&b, b_rows, b_cols);
+
+	if (!validateMultiply(&a, &b))
+	{
+		printf("Invalid Matrix sizes for multiply \n");
+		return 0;
+	}
+
+	// Init C's size based on A and B if they are valid
+	initialize_matrix(&c, a_rows, b_cols);
+
 
 	// Fill Input Matricies with random values
 	printf("Fill A returned: %d\n", fill_matrix(&a));
@@ -89,7 +124,7 @@ int main(int argc, char const *argv[])
 			array(all_t_args, c.cols, i, j).i = i;
 			array(all_t_args, c.cols, i, j).j = j;
 			// Create thread and have it start executing from multiply.
-			pthread_create(&array(threads, c.cols, i, j), NULL, multiply, (void *) &all_t_args[i*c.rows+j]);
+			pthread_create(&array(threads, c.cols, i, j), NULL, multiply, (void *) &all_t_args[i*c.cols+j]);
 		}
 	}
 
