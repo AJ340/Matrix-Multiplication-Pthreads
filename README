@@ -9,7 +9,7 @@ compiles with make
 
 matrix sizes are entered at runtime as program arguments
 Usage:
- ./AQ-UNIX-HW10 [A_ROWS] [A_COLUMNS] [B_ROWS]
+ ./AQ-UNIX-HW10 [A_ROWS] [A_COLUMNS] [B_ROWS] [B_COLUMNS]
 
  matrices are filled with random numbers from 1 to 10
 
